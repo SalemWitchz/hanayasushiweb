@@ -130,11 +130,10 @@ Proyecto Next.js (App Router, TypeScript, Tailwind CSS v4) inicializado en `C:\p
 
 **Flujo actual del MVP:** el cliente navega el menú, agrega productos al carrito, llena sus datos, y al dar clic en "Enviar pedido por WhatsApp" se abre WhatsApp con el mensaje ya armado — digitaliza el flujo manual actual sin necesitar backend todavía. No incluye pagos reales, cuenta de administración, ni lógica de reparto (eso corresponde a fases posteriores).
 
-**Pendiente inmediato:** reemplazar el número de WhatsApp placeholder en `src/lib/whatsapp.ts` (línea 5) con el número real del negocio.
+El número real de WhatsApp de Hanaya Sushi ya está cargado en `src/lib/whatsapp.ts` (+52 1 961 112 0608).
 
 ## 12. Próximos pasos sugeridos (no decididos aún)
 
-- [ ] Confirmar número de WhatsApp real de Hanaya Sushi.
 - [ ] Decidir si se persisten los pedidos en una base de datos (Supabase) o si Fase 1 se queda solo con el flujo de WhatsApp.
 - [ ] Diseñar el esquema de base de datos multi-tenant (`restaurant_id`) desde el inicio, aunque el primer cliente real sea solo Hanaya, para no tener que reescribir nada al vender a otros restaurantes.
 - [ ] Definir si/cuándo se agrega el botón "Solicitar mandadito" y cómo notifica (WhatsApp, push, etc.).

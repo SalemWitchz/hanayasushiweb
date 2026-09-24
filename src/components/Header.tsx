@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ScrollLink } from "@/components/ScrollLink";
 
 const LINKS = [
   { href: "#menu", label: "Menú" },
@@ -27,30 +28,30 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
-        <a href="#top" className="leading-none">
+        <ScrollLink href="#top" className="leading-none">
           <span className="text-2xl font-black tracking-wide">
             HANA
             <span className="text-hanaya-red">Y</span>A
           </span>
           <div className="text-xs tracking-[0.3em] text-white/70">SUSHI</div>
-        </a>
+        </ScrollLink>
 
         <nav className="hidden items-center gap-8 text-sm text-white/75 sm:flex">
           {LINKS.map((link) => (
-            <a
+            <ScrollLink
               key={link.href}
               href={link.href}
               className="relative py-1 transition-colors hover:text-hanaya-gold"
             >
               {link.label}
-            </a>
+            </ScrollLink>
           ))}
-          <a
+          <ScrollLink
             href="#menu"
             className="btn-lift rounded-full bg-hanaya-gold px-5 py-2 text-xs font-bold uppercase tracking-wide text-hanaya-navy-deep hover:bg-hanaya-gold-dark"
           >
             Pedir ahora
-          </a>
+          </ScrollLink>
         </nav>
 
         <button
@@ -81,22 +82,22 @@ export function Header() {
       {mobileOpen && (
         <nav className="flex flex-col gap-1 border-t border-white/10 bg-hanaya-navy-deep px-4 py-4 sm:hidden">
           {LINKS.map((link) => (
-            <a
+            <ScrollLink
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
               className="rounded-md px-2 py-2.5 text-sm text-white/80 hover:bg-white/5"
             >
               {link.label}
-            </a>
+            </ScrollLink>
           ))}
-          <a
+          <ScrollLink
             href="#menu"
             onClick={() => setMobileOpen(false)}
             className="mt-2 rounded-full bg-hanaya-gold px-4 py-2.5 text-center text-sm font-bold text-hanaya-navy-deep"
           >
             Pedir ahora
-          </a>
+          </ScrollLink>
 
           <div className="mt-5 space-y-4 border-t border-white/10 pt-4">
             <div>

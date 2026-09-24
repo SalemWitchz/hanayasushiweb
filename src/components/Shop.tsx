@@ -5,6 +5,7 @@ import { menu } from "@/data/menu";
 import type { OrderDetails, PaymentMethod } from "@/types/order";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 import { useCart } from "@/context/CartContext";
+import { ScrollLink } from "@/components/ScrollLink";
 
 export function Shop() {
   const { cart, addToCart, changeQuantity, total } = useCart();
@@ -53,7 +54,7 @@ export function Shop() {
       >
         <div className="mx-auto flex max-w-5xl gap-2 overflow-x-auto px-4 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {menu.map((category) => (
-            <a
+            <ScrollLink
               key={category.id}
               href={`#${category.id}`}
               className={`shrink-0 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wide transition-all ${
@@ -63,7 +64,7 @@ export function Shop() {
               }`}
             >
               {category.title}
-            </a>
+            </ScrollLink>
           ))}
         </div>
       </nav>

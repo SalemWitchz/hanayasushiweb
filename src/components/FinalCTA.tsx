@@ -1,6 +1,7 @@
 import { Reveal } from "@/components/Reveal";
 import { WaveTexture } from "@/components/motifs/WaveTexture";
 import { SakuraBranch } from "@/components/motifs/SakuraBranch";
+import { ScrollLink } from "@/components/ScrollLink";
 
 export function FinalCTA() {
   return (
@@ -23,12 +24,12 @@ export function FinalCTA() {
             Elige del menú, deja tus datos y cerramos el pedido por WhatsApp
             en un par de mensajes.
           </p>
-          <a
+          <ScrollLink
             href="#menu"
             className="btn-lift mt-8 inline-block rounded-full bg-hanaya-azure px-8 py-3.5 text-sm font-bold tracking-wide text-hanaya-navy-deep shadow-[0_18px_40px_-12px_rgba(79,166,224,0.55)] hover:bg-hanaya-azure-dark"
           >
             Ver el menú completo
-          </a>
+          </ScrollLink>
         </Reveal>
       </div>
     </section>

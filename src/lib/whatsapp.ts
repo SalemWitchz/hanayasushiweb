@@ -1,8 +1,7 @@
 import type { CartItem } from "@/types/order";
 import type { OrderDetails } from "@/types/order";
 
-// TODO: reemplazar con el número real de WhatsApp de Hanaya Sushi (formato 521XXXXXXXXXX)
-export const HANAYA_WHATSAPP_NUMBER = "5219610000000";
+export const HANAYA_WHATSAPP_NUMBER = "5219611120608";
 
 export function buildWhatsAppMessage(items: CartItem[], order: OrderDetails) {
   const lines: string[] = [];

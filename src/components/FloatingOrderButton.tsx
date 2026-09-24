@@ -1,13 +1,14 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
+import { ScrollLink } from "@/components/ScrollLink";
 
 export function FloatingOrderButton() {
   const { count } = useCart();
   const hasItems = count > 0;
 
   return (
-    <a
+    <ScrollLink
       href="#menu"
       aria-label={hasItems ? `Ver mi pedido, ${count} productos` : "Hacer pedido por WhatsApp"}
       className="btn-lift fixed right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_14px_32px_-8px_rgba(0,0,0,0.6)] sm:right-6"
@@ -22,6 +23,6 @@ export function FloatingOrderButton() {
           {count}
         </span>
       )}
-    </a>
+    </ScrollLink>
   );
 }

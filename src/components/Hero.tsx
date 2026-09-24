@@ -2,6 +2,7 @@ import { WaveDivider } from "@/components/WaveDivider";
 import { WaveTexture } from "@/components/motifs/WaveTexture";
 import { SakuraBranch } from "@/components/motifs/SakuraBranch";
 import { OpenStatusBadge } from "@/components/OpenStatusBadge";
+import { ScrollLink } from "@/components/ScrollLink";
 
 export function Hero() {
   return (
@@ -54,18 +55,18 @@ export function Hero() {
         </p>
 
         <div className="mt-9 flex flex-wrap items-center gap-4">
-          <a
+          <ScrollLink
             href="#menu"
             className="btn-lift rounded-full bg-hanaya-azure px-7 py-3 text-sm font-bold tracking-wide text-hanaya-navy-deep shadow-[0_18px_40px_-12px_rgba(79,166,224,0.55)] hover:bg-hanaya-azure-dark"
           >
             Ver el menú
-          </a>
-          <a
+          </ScrollLink>
+          <ScrollLink
             href="#menu"
             className="btn-lift rounded-full border border-hanaya-cream/25 px-7 py-3 text-sm font-semibold text-hanaya-cream/90 hover:border-hanaya-azure/60 hover:text-hanaya-azure"
           >
             Armar mi pedido
-          </a>
+          </ScrollLink>
         </div>
 
         <dl className="mt-14 grid grid-cols-2 gap-6 border-t border-hanaya-cream/10 pt-8 sm:grid-cols-3 sm:gap-10">

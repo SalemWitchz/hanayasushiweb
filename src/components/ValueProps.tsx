@@ -38,7 +38,7 @@ export function ValueProps() {
               </p>
               <h2
                 id="valores-heading"
-                className="mt-3 max-w-xl font-display text-3xl leading-tight text-hanaya-cream sm:text-4xl md:text-5xl"
+                className="mt-3 max-w-xl scroll-mt-24 font-display text-3xl leading-tight text-hanaya-cream sm:text-4xl md:text-5xl"
               >
                 Comida japonesa con <em className="text-hanaya-gold not-italic">cuidado de negocio de barrio</em>.
               </h2>
