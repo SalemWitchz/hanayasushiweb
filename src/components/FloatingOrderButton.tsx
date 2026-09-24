@@ -9,8 +9,7 @@ export function FloatingOrderButton() {
   const [modalOpen, setModalOpen] = useState(false);
   const hasItems = count > 0;
 
-  function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
-    e.preventDefault();
+  function handleClick() {
     if (hasItems) {
       setModalOpen(true);
       return;
@@ -20,8 +19,8 @@ export function FloatingOrderButton() {
 
   return (
     <>
-      <a
-        href="#menu"
+      <button
+        type="button"
         onClick={handleClick}
         aria-label={hasItems ? `Ver mi pedido, ${count} productos` : "Elegir productos para tu pedido"}
         className="btn-lift fixed right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_14px_32px_-8px_rgba(0,0,0,0.6)] sm:right-6"
@@ -36,7 +35,7 @@ export function FloatingOrderButton() {
             {count}
           </span>
         )}
-      </a>
+      </button>
 
       {modalOpen && <OrderModal onClose={() => setModalOpen(false)} />}
     </>

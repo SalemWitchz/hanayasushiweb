@@ -29,6 +29,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="es"
       className={`${shipporiMincho.variable} ${zenKaku.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{if('scrollRestoration' in history){history.scrollRestoration='manual';}function fix(){if(location.hash){history.replaceState(null,'',location.pathname+location.search);}window.scrollTo(0,0);}fix();window.addEventListener('load',fix);window.addEventListener('pageshow',fix);[0,50,150,300,600].forEach(function(ms){setTimeout(fix,ms);});}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-hanaya-navy text-white">
         <CartProvider>{children}</CartProvider>
       </body>
