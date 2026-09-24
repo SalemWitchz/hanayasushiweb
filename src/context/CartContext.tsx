@@ -1,7 +1,8 @@
 "use client";
 
 import { createContext, useContext, useMemo, useState } from "react";
-import type { CartItem } from "@/types/order";
+import type { CartItem, OrderDetails } from "@/types/order";
+import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 type CartContextValue = {
   cart: CartItem[];
@@ -9,12 +10,22 @@ type CartContextValue = {
   changeQuantity: (name: string, categoryId: string, delta: number) => void;
   total: number;
   count: number;
+  order: OrderDetails;
+  setOrder: (order: OrderDetails) => void;
+  canSubmit: boolean;
+  whatsappLink: string | null;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [order, setOrder] = useState<OrderDetails>({
+    name: "",
+    address: "",
+    phone: "",
+    paymentMethod: "efectivo",
+  });
 
   function addToCart(categoryId: string, name: string, price: number) {
     setCart((prev) => {
@@ -47,9 +58,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     [cart]
   );
 
+  const canSubmit =
+    cart.length > 0 && order.name.trim() !== "" && order.address.trim() !== "" && order.phone.trim() !== "";
+
+  const whatsappLink = canSubmit ? buildWhatsAppLink(cart, order) : null;
+
   const value = useMemo(
-    () => ({ cart, addToCart, changeQuantity, total, count }),
-    [cart, total, count]
+    () => ({ cart, addToCart, changeQuantity, total, count, order, setOrder, canSubmit, whatsappLink }),
+    [cart, total, count, order, canSubmit, whatsappLink]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

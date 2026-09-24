@@ -2,19 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { menu } from "@/data/menu";
-import type { OrderDetails, PaymentMethod } from "@/types/order";
-import { buildWhatsAppLink } from "@/lib/whatsapp";
 import { useCart } from "@/context/CartContext";
 import { ScrollLink } from "@/components/ScrollLink";
+import { OrderForm } from "@/components/OrderForm";
+import { WhatsAppSubmitButton } from "@/components/WhatsAppSubmitButton";
 
 export function Shop() {
   const { cart, addToCart, changeQuantity, total } = useCart();
-  const [order, setOrder] = useState<OrderDetails>({
-    name: "",
-    address: "",
-    phone: "",
-    paymentMethod: "efectivo",
-  });
   const [activeCategory, setActiveCategory] = useState(menu[0]?.id ?? "");
   const sectionRefs = useRef(new Map<string, HTMLElement>());
 
@@ -31,11 +25,6 @@ export function Shop() {
     sectionRefs.current.forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, []);
-
-  const canSubmit =
-    cart.length > 0 && order.name.trim() && order.address.trim() && order.phone.trim();
-
-  const whatsappLink = canSubmit ? buildWhatsAppLink(cart, order) : null;
 
   return (
     <div>
@@ -185,78 +174,11 @@ export function Shop() {
             <h3 className="font-display text-xl text-hanaya-cream">
               Datos para tu pedido
             </h3>
-            <div className="mt-4 space-y-4">
-              <label className="block">
-                <span className="text-xs font-semibold uppercase tracking-wide text-white/45">
-                  Nombre
-                </span>
-                <input
-                  type="text"
-                  value={order.name}
-                  onChange={(e) => setOrder({ ...order, name: e.target.value })}
-                  className="mt-1.5 w-full rounded-lg border border-white/10 bg-hanaya-navy-deep px-3 py-2.5 text-sm text-hanaya-cream placeholder:text-white/25 focus:border-hanaya-gold/60 focus:outline-none focus:ring-1 focus:ring-hanaya-gold/40"
-                />
-              </label>
-              <label className="block">
-                <span className="text-xs font-semibold uppercase tracking-wide text-white/45">
-                  Dirección con referencias
-                </span>
-                <textarea
-                  value={order.address}
-                  onChange={(e) => setOrder({ ...order, address: e.target.value })}
-                  rows={2}
-                  className="mt-1.5 w-full rounded-lg border border-white/10 bg-hanaya-navy-deep px-3 py-2.5 text-sm text-hanaya-cream placeholder:text-white/25 focus:border-hanaya-gold/60 focus:outline-none focus:ring-1 focus:ring-hanaya-gold/40"
-                />
-              </label>
-              <label className="block">
-                <span className="text-xs font-semibold uppercase tracking-wide text-white/45">
-                  Número de teléfono
-                </span>
-                <input
-                  type="tel"
-                  value={order.phone}
-                  onChange={(e) => setOrder({ ...order, phone: e.target.value })}
-                  className="mt-1.5 w-full rounded-lg border border-white/10 bg-hanaya-navy-deep px-3 py-2.5 text-sm text-hanaya-cream placeholder:text-white/25 focus:border-hanaya-gold/60 focus:outline-none focus:ring-1 focus:ring-hanaya-gold/40"
-                />
-              </label>
-              <div>
-                <span className="text-xs font-semibold uppercase tracking-wide text-white/45">
-                  Forma de pago
-                </span>
-                <div className="mt-1.5 flex gap-2 rounded-lg border border-white/10 bg-hanaya-navy-deep p-1">
-                  {(["efectivo", "transferencia"] as PaymentMethod[]).map((method) => (
-                    <button
-                      key={method}
-                      onClick={() => setOrder({ ...order, paymentMethod: method })}
-                      className={`flex-1 rounded-md px-3 py-2 text-sm font-semibold capitalize transition-colors ${
-                        order.paymentMethod === method
-                          ? "bg-hanaya-gold text-hanaya-navy-deep"
-                          : "text-white/60 hover:text-white/85"
-                      }`}
-                    >
-                      {method}
-                    </button>
-                  ))}
-                </div>
-              </div>
+            <div className="mt-4">
+              <OrderForm />
             </div>
 
-            <a
-              href={whatsappLink ?? undefined}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-disabled={!canSubmit}
-              className={`btn-lift mt-5 flex w-full items-center justify-center gap-2 rounded-full px-4 py-3 text-center text-sm font-bold ${
-                canSubmit
-                  ? "bg-green-600 text-white hover:bg-green-500"
-                  : "cursor-not-allowed bg-white/5 text-white/30"
-              }`}
-              onClick={(e) => {
-                if (!canSubmit) e.preventDefault();
-              }}
-            >
-              Enviar pedido por WhatsApp
-            </a>
+            <WhatsAppSubmitButton className="mt-5" />
           </div>
         </aside>
       </div>
