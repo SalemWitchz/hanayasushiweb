@@ -1,0 +1,236 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0b1f3d;
+  --foreground: #ffffff;
+  --color-hanaya-navy: #0b1f3d;
+  --color-hanaya-navy-dark: #081733;
+  --color-hanaya-navy-deep: #050e21;
+  --color-hanaya-navy-card: #102750;
+  --color-hanaya-red: #af1f2b;
+  --color-hanaya-gold: #c69a3e;
+  --color-hanaya-gold-dark: #a67c2b;
+  --color-hanaya-azure: #4fa6e0;
+  --color-hanaya-azure-dark: #3982b6;
+  --color-hanaya-red-deep: #8a2630;
+  --color-hanaya-red-deep-dark: #6b1c24;
+  --color-hanaya-cream: #f4ecd8;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-hanaya-navy: var(--color-hanaya-navy);
+  --color-hanaya-navy-dark: var(--color-hanaya-navy-dark);
+  --color-hanaya-navy-deep: var(--color-hanaya-navy-deep);
+  --color-hanaya-navy-card: var(--color-hanaya-navy-card);
+  --color-hanaya-red: var(--color-hanaya-red);
+  --color-hanaya-gold: var(--color-hanaya-gold);
+  --color-hanaya-gold-dark: var(--color-hanaya-gold-dark);
+  --color-hanaya-azure: var(--color-hanaya-azure);
+  --color-hanaya-azure-dark: var(--color-hanaya-azure-dark);
+  --color-hanaya-red-deep: var(--color-hanaya-red-deep);
+  --color-hanaya-red-deep-dark: var(--color-hanaya-red-deep-dark);
+  --color-hanaya-cream: var(--color-hanaya-cream);
+  --font-sans: var(--font-zen-kaku);
+  --font-display: var(--font-shippori-mincho);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* =============================================================
+   Reveal-on-scroll (functional fade — always runs, see 07-windows)
+   ============================================================= */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s var(--ease-soft), transform 0.8s var(--ease-soft);
+}
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* =============================================================
+   Hero mesh gradient — ambient loop, never gated by reduced-motion
+   ============================================================= */
+@property --mesh-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --mesh-x {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 30%;
+}
+@property --mesh-y {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 40%;
+}
+
+.mesh-glow {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(80px) saturate(120%);
+  animation: meshShift 24s linear infinite;
+  mix-blend-mode: screen;
+}
+.mesh-glow--hero {
+  inset: -10%;
+  opacity: 0.9;
+  background:
+    radial-gradient(55% 45% at var(--mesh-x) var(--mesh-y), rgba(79, 166, 224, 0.38), transparent 62%),
+    conic-gradient(
+      from var(--mesh-angle),
+      rgba(79, 166, 224, 0.22),
+      rgba(11, 31, 61, 0.05),
+      rgba(57, 130, 182, 0.2),
+      rgba(79, 166, 224, 0.22)
+    );
+}
+.mesh-glow--subtle {
+  opacity: 0.55;
+  background:
+    radial-gradient(50% 40% at var(--mesh-x) var(--mesh-y), rgba(198, 154, 62, 0.22), transparent 65%),
+    conic-gradient(
+      from var(--mesh-angle),
+      rgba(175, 31, 43, 0.12),
+      rgba(11, 31, 61, 0.04),
+      rgba(198, 154, 62, 0.16),
+      rgba(175, 31, 43, 0.12)
+    );
+}
+.mesh-glow--ember {
+  opacity: 0.45;
+  filter: blur(70px) saturate(100%);
+  background:
+    radial-gradient(50% 40% at var(--mesh-x) var(--mesh-y), rgba(138, 38, 48, 0.32), transparent 65%),
+    conic-gradient(
+      from var(--mesh-angle),
+      rgba(138, 38, 48, 0.18),
+      rgba(11, 31, 61, 0.04),
+      rgba(107, 28, 36, 0.16),
+      rgba(138, 38, 48, 0.18)
+    );
+}
+@keyframes meshShift {
+  0% {
+    --mesh-angle: 0deg;
+    --mesh-x: 28%;
+    --mesh-y: 35%;
+  }
+  50% {
+    --mesh-angle: 180deg;
+    --mesh-x: 68%;
+    --mesh-y: 55%;
+  }
+  100% {
+    --mesh-angle: 360deg;
+    --mesh-x: 28%;
+    --mesh-y: 35%;
+  }
+}
+
+/* =============================================================
+   Marquee ticker — continuous strip, functional/ambient (always runs)
+   ============================================================= */
+.marquee {
+  overflow: hidden;
+  position: relative;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 3rem;
+  animation: marqueeScroll 32s linear infinite;
+}
+.marquee-track > * {
+  display: flex;
+  gap: 3rem;
+  flex-shrink: 0;
+}
+@keyframes marqueeScroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.hero-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 220px 220px;
+}
+
+/* =============================================================
+   Card lift (pop-up) — functional hover feedback
+   ============================================================= */
+.btn-lift {
+  transition: transform 0.45s var(--ease-soft), box-shadow 0.45s var(--ease-soft);
+}
+.btn-lift:hover {
+  transform: translateY(-3px);
+}
+.btn-lift:active {
+  transform: translateY(-1px);
+  transition-duration: 0.12s;
+}
+
+.card-tilt {
+  --rx: 0deg;
+  --ry: 0deg;
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 0.55s var(--ease-soft);
+}
+.card-tilt:hover {
+  transition-duration: 0.15s;
+}
+
+/* =============================================================
+   Pulse dot — small live indicator (gated: it's the intrusive kind)
+   ============================================================= */
+.pulse-dot {
+  position: relative;
+}
+.pulse-dot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: pulseDot 2.2s ease-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot::before {
+    animation: none;
+  }
+}
+@keyframes pulseDot {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}

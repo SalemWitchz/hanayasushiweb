@@ -22,14 +22,46 @@ El historial de conversación de Claude Code no se sincroniza entre computadoras
 
 **Regla:** al cerrar una sesión de trabajo importante, actualizar este archivo con lo relevante antes de hacer commit, para que la siguiente sesión (en cualquiera de las dos computadoras) arranque con el contexto correcto.
 
+## Preferencias de trabajo
+
+- No agregar "Co-Authored-By: Claude" ni ninguna atribución de Claude/Anthropic en los mensajes de commit de git.
+
+## Stack tecnológico
+
+- **Frontend:** Next.js (App Router) + TypeScript + Tailwind CSS
+- **Hosting (prototipo):** Vercel (capa gratuita)
+- **Backend/BD (planeado):** Supabase (PostgreSQL + Auth), capa gratuita
+- **Pagos (prototipo):** modo sandbox de Stripe o Mercado Pago (sin dinero real todavía)
+
+## Modelo de negocio y alcance (fases)
+
+El proyecto nace de una idea más grande (sistema de pedidos + logística de reparto propia, inspirada en un segundo proyecto llamado "PinEco"). Se decidió avanzar por fases para no invertir capital antes de tiempo:
+
+1. **Fase 1 (actual):** catálogo de productos, carrito, formulario de pedido (datos: nombre, dirección con referencias, teléfono, forma de pago), sin lógica de reparto — solo un botón "Solicitar mandadito" que notifica a los mandaditos con los que el negocio ya trabaja. Pago del envío fuera de la plataforma (efectivo/transferencia directa al mandadito), para evitar obligaciones fiscales de "plataforma tecnológica" ante el SAT.
+2. **Fase 2:** pool compartido de mandaditos entre varios restaurantes (marketplace de dos lados), aún sin optimización de rutas.
+3. **Fase 3:** motor de optimización de rutas (VRP) tipo PinEco — OSRM + OR-Tools/VROOM — cuando ya haya suficiente densidad de pedidos simultáneos para agrupar entregas.
+4. **Fase 4:** red logística regional completa (tipo mini-DiDi Food), con dispersión de pagos a repartidores — requiere procesador de pagos tipo Mercado Pago para Plataformas y asesoría fiscal por las retenciones de ISR/IVA que aplican a plataformas tecnológicas.
+
+## Negocio real: Hanaya Sushi
+
+- Ubicación: Calle 14 Poniente #130, entre Cvln. Tapachula y Blvd. Belisario Domínguez, col. Moctezuma, Tuxtla Gutiérrez, Chiapas.
+- Actualmente toma pedidos por WhatsApp y Facebook de forma manual.
+- Identidad de marca: fondo azul marino oscuro, blanco, acento rojo (logo con ícono de montaña/sol), dorado para promociones.
+- El menú completo (categorías, productos, precios) vive en `src/data/menu.ts`.
+
 ## Estado del proyecto
 
-_(Pendiente: aquí se irá documentando la estructura, stack elegido, y avance conforme se defina.)_
+Proyecto Next.js recién inicializado (App Router + TypeScript + Tailwind). Pendiente: construir catálogo del menú, carrito y formulario de pedido.
 
 ## Próximos pasos
 
-- [ ] Crear la carpeta del proyecto en `C:\hanayasushiweb` (en cada computadora que se use)
-- [ ] Inicializar el repositorio git
-- [ ] Conectarlo a un repositorio remoto en GitHub
-- [ ] Definir stack tecnológico (frontend / backend)
-- [ ] Primer commit
+- [x] Crear la carpeta del proyecto en `C:\proyectos\hanayasushiweb`
+- [x] Inicializar el repositorio git
+- [x] Conectar a un repositorio remoto en GitHub (privado)
+- [x] Definir stack tecnológico (Next.js + Tailwind + Supabase)
+- [x] Primer commit
+- [ ] Cargar el menú completo como datos estructurados
+- [ ] Construir la página de catálogo/menú con el diseño de marca
+- [ ] Construir carrito de compra
+- [ ] Construir formulario de pedido (nombre, dirección, teléfono, forma de pago)
+- [ ] Botón "Solicitar mandadito"
